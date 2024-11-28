@@ -28,7 +28,7 @@ services:
       DB_HOST: mysql
       NODE_ENV: production
       JWT_SECRET: 6124dce3ccdabb98bc09f4ea1c8cac7e2129d11f
-      GOOGLE_API_KEY: AIzaSyAU-ijPTE4mIWLLcwmvFXY7epJlI33kzGo
+      GOOGLE_API_KEY:
     ports:
       - "8080:8080"
     depends_on:
