@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://127.0.0.1:8080
+        GOOGLE_API_KEY:
+    ports:
+      - "80:80"
+    environment:
+    - VITE_API_URL=http://127.0.0.1:8080
+    depends_on:
+      - backend
+    networks:
+      - shopper_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: mysql://shopper:passwd@mysql:3306/shopper
+      DB_USER: shopper
+      DB_PASSWORD: passwd
+      DB_HOST: mysql
+      NODE_ENV: production
+      JWT_SECRET: 6124dce3ccdabb98bc09f4ea1c8cac7e2129d11f
+      GOOGLE_API_KEY: AIzaSyAU-ijPTE4mIWLLcwmvFXY7epJlI33kzGo
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - shopper_network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-database
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: shopper
+      MYSQL_USER: shopper
+      MYSQL_PASSWORD: passwd
+    volumes:
+      - mysql_volume_data:/var/lib/mysql
+       ./dump.sql:/docker-entrypoint-initdb.d/dump.sql 
+    ports:
+      - "3306:3306"
+    networks:
+      - shopper_network
+
+volumes:
+  mysql_volume_data:
+
+networks:
+  shopper_network:
+    driver: bridge

@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.roboto-thin {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  .roboto-light {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .roboto-medium {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .roboto-black {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+  .roboto-thin-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  .roboto-light-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .roboto-regular-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .roboto-medium-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .roboto-bold-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  .roboto-black-italic {
+    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #F5F5F7;
+    color: #2C2C2E;
+}
+
+.hamburguer__stick {
+  width: 1.7rem;
+  height: 3px;
+  background-color: #FFF;
+  transition: transform 0.3s ease-in-out;
+}
+
+.active .hamburguer__stick:first-child {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.active .hamburguer__stick:nth-child(2) {
+  opacity: 0;
+}
+
+.active .hamburguer__stick:last-child {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.menu__active {
+  transition: transform 0.4s ease-in-out;
+  animation: openMenu ease .4s;
+  position: absolute;
+  right: 0;
+}
+
+@keyframes openMenu {
+  0% {
+      right: 100%;
+      opacity: 0;
+  }
+
+  100% {
+      right: 0;
+      opacity: 100%;
+  }
+}
+
+#map {
+  height: 100%;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
