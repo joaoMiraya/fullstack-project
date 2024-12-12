@@ -4,6 +4,7 @@ import { FastifyPluginAsync, FastifyServerOptions } from 'fastify';
 import mysql from 'mysql2/promise'; 
 import cors from '@fastify/cors';
 import pino from 'pino';
+import { FastifyRedis } from '@fastify/redis'; 
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -51,6 +52,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
       saltWorkFactor: 12,
     });
     
+    fastify.register(require('@fastify/redis'), { host: 'redis' });
+
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
@@ -71,6 +74,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
 
 declare module 'fastify' {
   interface FastifyInstance {
+    redis: FastifyRedis;
     database: mysql.Connection;
     bcrypt: {
       hash: (password: string) => Promise<string>;

@@ -32,7 +32,7 @@ function Header(){
             <header className="bg-[#1C1C1E] px-[2rem] h-[6rem]">
                 <div className="flex h-full justify-between text-white">
                     <span className="flex items-center text-xl font-semibold">
-                        <h1>Shopper</h1>
+                        <Link to={'/'}><h1>Taxi</h1></Link>
                     </span>
                     <nav className="flex items-end">
                         <ul className="hidden md:flex  gap-3">

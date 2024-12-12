@@ -14,7 +14,7 @@ export const Profile = () => {
     useEffect(()=> {
         if(user && user.uid) {
             const uid = user.uid;
-            api.get(`ride/${uid}`).then((res) => {
+            api.get(`ride/${uid}`).then((res) => {                
                 setHistory(res.data);
             }).catch((err) => {
                 console.log(err);
@@ -40,7 +40,7 @@ export const Profile = () => {
                     </div>
                     <div className="py-4 flex flex-col gap-2 w-full max-w-[22rem]">
                     {history.length > 0 ? 
-                        <h2><h2>Seu histórico de viagens</h2></h2>
+                        <h2>Seu histórico de viagens</h2>
                         :<p className="text-sm">Você ainda não possui nenhuma viagem</p>}
                         
                         {history.map((element, i) => {
