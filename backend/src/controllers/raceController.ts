@@ -3,6 +3,7 @@ import { DriverRepository } from '../repositorys/driverRepository';
 import { RaceRepository } from '../repositorys/raceRepository';
 import { RaceEntity } from '../entities/raceEntity';
 import { generateUid } from '../services/uidGenerator';
+import { setRaceOnCache } from '../services/redis.service';
 
 export class RaceController {
     private driverRepository: DriverRepository;
@@ -37,8 +38,9 @@ export class RaceController {
         try {
             const race = new RaceEntity(rId, driver, 'PENDING', car, customer_id, origin, destination, distance, duration, value);
             this.raceRepository.create(race)
-            
+
             this.fastify.log.info('Create new race sucefully');
+            await setRaceOnCache(this.fastify, race, race.getPassengerUid());
 
             reply.status(200).send({sucess: true, race: race});
         } catch(err) {
@@ -83,6 +85,7 @@ export class RaceController {
     async getHistoryRace(request: FastifyRequest, reply: FastifyReply) {
         const { customer_id, driver_id } = request.params as { customer_id: string, driver_id?: string };
         try {
+            /* const history = await getRacesOnCache(this.fastify, customer_id); */
             const history = await this.raceRepository.history(customer_id, driver_id);
             reply.status(200).send(history);
         } catch(err){
