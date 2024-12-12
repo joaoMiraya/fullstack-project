@@ -106,7 +106,9 @@ export class RaceEntity {
 }
 
 export interface SafeRace {
+    rId: string;
     driverId: string;
+    status: string;
     car: string;
     origin: string;
     destination: string;

@@ -72,7 +72,7 @@ export class UserController {
             ]
           : [],
         };
-        
+
         return reply.status(201).send({ token, user: safeDriver });
       }
 

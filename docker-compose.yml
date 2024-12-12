@@ -1,4 +1,3 @@
-version: "3.8"
 
 services:
   frontend:
@@ -7,7 +6,7 @@ services:
       dockerfile: Dockerfile
       args:
         VITE_API_URL: http://127.0.0.1:8080
-        GOOGLE_API_KEY:
+        GOOGLE_API_KEY: AIzaSyCK_FV6XyRUVEzaG3tmDrqhnYpK-Toe7q0
     ports:
       - "80:80"
     environment:
@@ -15,7 +14,7 @@ services:
     depends_on:
       - backend
     networks:
-      - shopper_network
+      - fullstack_network
 
   backend:
     build:
@@ -26,19 +25,20 @@ services:
       DB_USER: shopper
       DB_PASSWORD: passwd
       DB_HOST: mysql
+      PORT: 8080
       NODE_ENV: production
       JWT_SECRET: 6124dce3ccdabb98bc09f4ea1c8cac7e2129d11f
-      GOOGLE_API_KEY:
+      GOOGLE_API_KEY: AIzaSyCK_FV6XyRUVEzaG3tmDrqhnYpK-Toe7q0
     ports:
       - "8080:8080"
     depends_on:
       - mysql
     networks:
-      - shopper_network
+      - fullstack_network
 
   mysql:
     image: mysql:8.0
-    container_name: mysql-database
+    container_name: fullstack-database
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -47,15 +47,38 @@ services:
       MYSQL_PASSWORD: passwd
     volumes:
       - mysql_volume_data:/var/lib/mysql
-       ./dump.sql:/docker-entrypoint-initdb.d/dump.sql 
+      - ./backend/dump.sql:/docker-entrypoint-initdb.d/dump.sql
     ports:
       - "3306:3306"
     networks:
-      - shopper_network
+      - fullstack_network
+
+  redis:
+    image: redis:7.4.1-alpine
+    container_name: redis-server
+    restart: unless-stopped
+    volumes:
+      - redis_volume_data:/data
+    ports:
+      - 6379:6379
+    networks:
+      - fullstack_network
+
+  redis_insight:
+    image: redislabs/redisinsight:1.14.0
+    container_name: redis_insight
+    restart: unless-stopped
+    ports:
+      - 8001:8001
+    volumes:
+      - redis_insight_volume_data:/db
+    networks:
+      - fullstack_network
 
 volumes:
   mysql_volume_data:
-
+  redis_volume_data:
+  redis_insight_volume_data:
 networks:
-  shopper_network:
+  fullstack_network:
     driver: bridge
