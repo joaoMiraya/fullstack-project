@@ -5,12 +5,12 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: http://127.0.0.1:8080
+        VITE_API_URL: http://3.138.102.203:8080
         GOOGLE_API_KEY:
     ports:
       - "80:80"
     environment:
-    - VITE_API_URL=http://127.0.0.1:8080
+    - VITE_API_URL=http://3.138.102.203:8080
     depends_on:
       - backend
     networks:
