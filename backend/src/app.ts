@@ -39,7 +39,15 @@ const app: FastifyPluginAsync<AppOptions> = async (
 ): Promise<void> => {
   // Place here your custom code!
     void fastify.register(cors, {
-      origin: ['http://127.0.0.1:80', '172.18.0.1', 'http://127.0.0.1', 'http://localhost:80', 'http://localhost:5173', 'http://localhost'],
+      origin: [
+        'http://127.0.0.1:80',
+        '172.18.0.1',
+        'http://127.0.0.1',
+        'http://localhost:80',
+        'http://localhost:5173',
+        'http://localhost',
+        'http://3.138.102.203',
+      ],
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization'],
