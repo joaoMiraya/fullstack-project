@@ -78,6 +78,14 @@ const app: FastifyPluginAsync<AppOptions> = async (
     dir: join(__dirname, 'routes'),
     options: opts
   })
+
+  fastify.listen({ port: 8080, host: process.env.HOST  })
+  .then((address) => console.log(`server listening on ${address}`))
+  .catch(err => {
+    console.log('Error starting server:', err)
+    process.exit(1)
+  })
+
 };
 
 declare module 'fastify' {
